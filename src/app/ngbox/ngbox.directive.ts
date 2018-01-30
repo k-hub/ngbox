@@ -1,4 +1,4 @@
-import { Directive, AfterViewInit, HostListener, Input, OnDestroy } from '@angular/core';
+import { Directive, AfterViewInit, HostBinding, HostListener, Input, OnDestroy} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgBoxService } from './ngbox.service';
 
@@ -6,10 +6,11 @@ import { NgBoxService } from './ngbox.service';
     selector: '[myNgBox],[ng-box]'
 })
 export class NgBoxDirective implements AfterViewInit, OnDestroy {
+    private nativeElement: Node;
 
     id: number;
     data: {};
-    @Input() src: any;
+    @Input() @HostBinding('src') src: any;
     @Input() href: any;
     @Input() title: string;
     @Input() width: string;
@@ -21,8 +22,7 @@ export class NgBoxDirective implements AfterViewInit, OnDestroy {
     constructor(
         public ngBox: NgBoxService,
         public sanitizer: DomSanitizer
-    ) {
-    }
+    ) { }
 
     ngOnDestroy() {
         let pos = this.ngBox.images.map(function(e) { return e.id; }).indexOf(this.id);
@@ -75,7 +75,6 @@ export class NgBoxDirective implements AfterViewInit, OnDestroy {
                 };
             }
             if (!url.match(/\.(png|jpg|jpeg|gif|JPG|PNG|JPEG|GIF)$/) && this.image !== true) {
-
                 return {
                     id: this.id,
                     url: this.sanitizer.bypassSecurityTrustResourceUrl(url),
