@@ -1,3 +1,11 @@
+typings
+app/**/*.js
+app/**/*.map
+jspm_packages
+bower_components
+.idea
+assets
+
 # compiled output
 /dist
 /tmp
