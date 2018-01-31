@@ -42,6 +42,6 @@ Add `ng-box` to your image or to your links. The required param is `src` or `hre
  
  `[width]="800" [height]="800"`
  
- `title="This is a title"`
+ `[title]="This is a title"`
  
  `[cache]="true"` (if you want to preload an image)
